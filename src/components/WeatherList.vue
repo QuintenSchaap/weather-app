@@ -71,9 +71,13 @@ export default {
         tomorrow.setDate(today + 1);
         const tomorrowDate = tomorrow.getDate();
 
-        const todayForecast = list.find((item) => {
+        let todayForecast = list.find((item) => {
           return new Date(item.dt_txt).getDate() === today;
         });
+
+        if (!todayForecast) {
+          todayForecast = list[0];
+        }
 
         const tomorrowForecast = list.find((item) => {
           const date = new Date(item.dt_txt);
