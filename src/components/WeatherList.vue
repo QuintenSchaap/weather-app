@@ -2,7 +2,7 @@
   <div class="container py-2">
 
     <form @submit.prevent="addCity" class="mb-2 d-flex gap-2">
-      <input v-model="newCity" class="form-control" placeholder="Enter a city" />
+      <input v-model="newCity" class="form-control flex-grow-1" placeholder="Enter a city" />
       <button class="btn btn-primary">Add City</button>
     </form>
 
@@ -14,8 +14,10 @@
         </div>
 
         <div v-if="city.weatherToday && city.weatherTomorrow">
-          <strong>Today:</strong> {{ city.weatherToday.temp }}°C, {{ city.weatherToday.description }}<br>
+          <strong>Today:</strong> {{ city.weatherToday.temp }}°C, {{ city.weatherToday.description }}
+          <img :src="`https://openweathermap.org/img/wn/${city.weatherToday.icon}.png`" alt="Weather Today icon"/><br>
           <strong>Tomorrow:</strong> {{ city.weatherTomorrow.temp }}°C, {{ city.weatherTomorrow.description }}
+          <img :src="`https://openweathermap.org/img/wn/${city.weatherTomorrow.icon}.png`" alt="Weather Tomorrow icon"/>
         </div>
         <div v-else>
           <p>Loading weather data...</p>
@@ -81,11 +83,13 @@ export default {
         cityObj.weatherToday = {
           temp: todayForecast.main.temp,
           description: todayForecast.weather[0].description,
+          icon: todayForecast.weather[0].icon,
         };
 
         cityObj.weatherTomorrow = {
           temp: tomorrowForecast.main.temp,
           description: tomorrowForecast.weather[0].description,
+          icon: tomorrowForecast.weather[0].icon,
         };
       } catch (err) {
         cityObj.error = 'Error loading weather for ' + name;
