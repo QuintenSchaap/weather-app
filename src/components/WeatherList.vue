@@ -1,10 +1,10 @@
 <template>
   <div class="container py-2">
 
-    <div v-if="weatherToday && weatherTomorrow">
-      <h3>Today</h3>
-      <p>Temperature: {{ weatherToday.temp }} °C</p>
-      <p>Condition: {{ weatherToday.description }}</p>
+    <form @submit.prevent="addCity" class="mb-2 d-flex gap-2">
+      <input v-model="newCity" class="form-control" placeholder="Enter a city" />
+      <button class="btn btn-primary">Add City</button>
+    </form>
 
     <div v-for="(city, index) in cities" :key="city.name" class="card mb-2">
       <div class="card-body">
